@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Defender Web Panel</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div id="auth" class="auth-screen hidden">
+    <div class="auth-card">
+      <div class="brand-mark">🛡️</div>
+      <h1>AI Defender</h1>
+      <p>Откройте панель как Telegram Mini App или войдите через Telegram в браузере.</p>
+      <button id="tg-login" class="primary-btn">Войти через Telegram</button>
+      <button id="demo-login" class="ghost-btn">Демо-вход для настройки JSON</button>
+    </div>
+  </div>
+
+  <main id="app" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-top">
+        <button id="collapse-sidebar" class="icon-btn" title="Скрыть чаты">^</button>
+        <button id="mobile-close" class="icon-btn mobile-only" title="Закрыть меню">×</button>
+      </div>
+      <button id="ai-page" class="ai-btn">ИИ</button>
+      <div class="chat-search-wrap">
+        <input id="chat-search" class="field" placeholder="Поиск чата" />
+      </div>
+      <div id="chat-list" class="chat-list"></div>
+      <button id="add-chat" class="ghost-btn wide">+ Добавить чат</button>
+      <div class="profile-card">
+        <div id="profile-avatar" class="avatar">?</div>
+        <div>
+          <strong id="profile-name">Пользователь</strong>
+          <span id="profile-username">@username</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <header class="topbar">
+        <button id="mobile-menu" class="hamburger" aria-label="Открыть меню"><span></span><span></span><span></span></button>
+        <div>
+          <h1 id="page-title">Выберите чат</h1>
+          <p id="page-subtitle">Настройки сохраняются в JSON по схеме бота.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="import-json" class="ghost-btn">Импорт</button>
+          <button id="export-json" class="ghost-btn">Экспорт</button>
+          <button id="save-settings" class="primary-btn">Сохранить</button>
+        </div>
+      </header>
+
+      <div id="empty-state" class="empty-state">Выберите чат</div>
+
+      <form id="settings-form" class="settings-grid hidden">
+        <section class="panel full"><h2>Чат</h2><div class="two-col"><label>Название<input id="chat-title" class="field"></label><label>ID чата<input id="chat-id" class="field" readonly></label></div></section>
+        <section class="panel"><h2>Антиспам</h2><div id="antispam-fields"></div></section>
+        <section class="panel"><h2>Антирейд</h2><div id="antiraid-fields"></div></section>
+        <section class="panel"><h2>Защита 18+</h2><div id="nsfw-fields"></div></section>
+      </form>
+
+      <form id="ai-form" class="settings-grid hidden">
+        <section class="panel full">
+          <h2>Настройка ИИ</h2>
+          <label>Чат<select id="ai-chat-select" class="field"></select></label>
+          <div id="ai-fields"></div>
+        </section>
+      </form>
+    </section>
+  </main>
+  <input id="file-picker" type="file" accept="application/json" hidden />
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
