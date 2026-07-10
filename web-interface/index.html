@@ -6,17 +6,15 @@
   <title>AI Defender Web Panel</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="./config.js"></script>
 </head>
 <body>
   <div id="auth" class="auth-screen hidden">
     <div class="auth-card">
       <div class="brand-mark">🛡️</div>
       <h1>AI Defender</h1>
-      <p>Откройте панель как Telegram Mini App или зарегистрируйтесь через Telegram в браузере.</p>
-      <div id="telegram-login-widget" class="telegram-widget"></div>
-      <button id="tg-login" class="primary-btn">Зарегистрироваться через Telegram</button>
-      <p class="auth-hint">Для браузерной авторизации домен должен быть добавлен в BotFather через /setdomain.</p>
+      <p>Откройте панель как Telegram Mini App или войдите через Telegram в браузере.</p>
+      <button id="tg-login" class="primary-btn">Войти через Telegram</button>
+      <button id="demo-login" class="ghost-btn">Демо-вход для настройки JSON</button>
     </div>
   </div>
 

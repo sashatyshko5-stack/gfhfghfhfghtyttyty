@@ -28,7 +28,7 @@ AI_DEFENDER_SETTINGS_DIR=/path/to/group_settings python3 server.py
 
 Доступные endpoints:
 
-- `GET /api/me` — служебная проверка API; браузерная авторизация выполняется через Telegram Login Widget.
+- `GET /api/me` — служебная проверка API; браузерный режим использует кнопку входа через Telegram и локальный демо-вход.
 - `GET /api/chats` — список чатов из `group_settings`.
 - `GET /api/chats/:chatId/settings` — настройки чата.
 - `PUT /api/chats/:chatId/settings` — сохранить настройки в `group_settings/<chatId>/settings.json`.
@@ -36,14 +36,13 @@ AI_DEFENDER_SETTINGS_DIR=/path/to/group_settings python3 server.py
 ## Авторизация
 
 - В Telegram Mini App интерфейс берёт пользователя из `window.Telegram.WebApp.initDataUnsafe.user`.
-- В обычном браузере интерфейс показывает регистрацию/вход через Telegram Login Widget.
-- Для работы Login Widget домен фронтенда должен быть добавлен в BotFather через `/setdomain`, а имя бота задаётся в `config.js` (`telegramBotUsername`).
-- Для production нужно добавить серверную проверку подписи Telegram initData/Login Widget перед выдачей списка чатов.
+- В обычном браузере интерфейс показывает вход через Telegram и демо-вход для локальной настройки JSON.
+- Для production нужно добавить серверную проверку подписи Telegram initData перед выдачей списка чатов.
 
 ## Метод 1: Hugging Face Spaces
 
 1. Создайте Space на Hugging Face.
-2. Если нужен только статический фронтенд с Telegram Login Widget и экспортом JSON, выберите SDK **Static** и загрузите:
+2. Если нужен только статический фронтенд с экспортом JSON, выберите SDK **Static** и загрузите:
    - `index.html`
    - `styles.css`
    - `app.js`

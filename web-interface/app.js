@@ -1,5 +1,4 @@
-const CONFIG = window.AI_DEFENDER_CONFIG || {};
-const API = CONFIG.apiBase || '';
+const API = '';
 const PROVIDERS = {
   laozhang: ['gpt-4o-mini', 'gpt-4o', 'deepseek-chat'],
   openrouter: ['meta-llama/llama-3.3-70b-instruct:free', 'deepseek/deepseek-r1:free', 'google/gemini-2.0-flash-exp:free'],
@@ -116,25 +115,13 @@ function renderPage() { state.chats.forEach(c => c.settings = mergeDefaults(c.se
 function renderBrowserTelegramLogin() {
   $('auth').classList.remove('hidden');
   $('app').classList.add('hidden');
-  window.onTelegramAuth = async user => {
-    state.user = { id: user.id, name: [user.first_name, user.last_name].filter(Boolean).join(' '), username: user.username || '', photo_url: user.photo_url || '', telegramAuth: true };
-    await loadFromBackend();
-    showApp();
-  };
-  const widget = $('telegram-login-widget');
-  const bot = CONFIG.telegramBotUsername || 'defende125_bot';
-  widget.innerHTML = '';
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = 'https://telegram.org/js/telegram-widget.js?22';
-  script.setAttribute('data-telegram-login', bot);
-  script.setAttribute('data-size', 'large');
-  script.setAttribute('data-radius', '12');
-  script.setAttribute('data-request-access', 'write');
-  script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-  widget.append(script);
 }
-$('tg-login').onclick = () => window.open(`https://t.me/${CONFIG.telegramBotUsername || 'defende125_bot'}`, '_blank');
+$('tg-login').onclick = () => window.open('https://t.me/defende125_bot', '_blank');
+$('demo-login').onclick = async () => {
+  state.user = { name: 'Demo Admin', username: 'demo_admin', telegramAuth: true };
+  await loadFromBackend();
+  showApp();
+};
 $('ai-page').onclick = () => { state.page = 'ai'; if (!state.selected && state.chats[0]) state.selected = state.chats[0].id; renderPage(); };
 $('save-settings').onclick = async () => { const c = current(); if (!c) return; saveLocal(); try { const applied = await saveToBackend(c); alert(applied ? 'Настройки применены в JSON-хранилище бота.' : 'Демо-режим: настройки сохранены локально, экспортируйте JSON.'); } catch (e) { alert(`Не удалось применить на backend: ${e.message}`); } };
 $('add-chat').onclick = () => { const id = prompt('ID чата Telegram'); if (!id) return; state.chats.push({ id, title: 'Новый чат', settings: structuredClone(DEFAULT_SETTINGS) }); state.selected = id; renderPage(); renderChats(); };
